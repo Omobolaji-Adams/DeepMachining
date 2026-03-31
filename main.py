@@ -5,7 +5,7 @@ import argparse
 import pandas as pd
 import numpy as np
 import tensorflow as tf
-import tensorflow_addons as tfa
+# import tensorflow_addons as tfa
 from matplotlib import pyplot as plt
 import matplotlib as mpl
 from sklearn.metrics import mean_absolute_error
@@ -52,7 +52,8 @@ def main(cfg, logger):
         initial_learning_rate=cfg.SOLVER.BASE_LR,
         decay_steps=len(train_generator)*cfg.SOLVER.MAX_EPOCHS
     ))
-    optimizer = tfa.optimizers.AdamW(learning_rate=lr_decayed_fn, weight_decay=cfg.SOLVER.WEIGHT_DECAY)
+    #optimizer = tfa.optimizers.AdamW(learning_rate=lr_decayed_fn, weight_decay=cfg.SOLVER.WEIGHT_DECAY)
+    optimizer = tf.keras.optimizers.AdamW(learning_rate=lr_decayed_fn, weight_decay=cfg.SOLVER.WEIGHT_DECAY)
     metrics = {
         'regressor_act_2': [
             tf.keras.metrics.MeanAbsoluteError(),
