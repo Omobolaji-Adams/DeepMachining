@@ -1,6 +1,15 @@
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 
+# TF 2.16+ ships Keras 3 which breaks TimeDistributed with dynamic shapes.
+# tf_keras restores Keras 2 behavior. Install with: pip install tf_keras
+try:
+    import tf_keras
+    import tensorflow as _tf_internal
+    _tf_internal.keras = tf_keras
+except ImportError:
+    pass  # TF <= 2.15 doesn't need this
+
 import argparse
 import pandas as pd
 import numpy as np
